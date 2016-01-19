@@ -25,6 +25,8 @@ class ViewController: UIViewController {
         let defaults = NSUserDefaults.standardUserDefaults()
         let tipIndex = defaults.integerForKey(defaultTipIndexKey)
         tipControl.selectedSegmentIndex = tipIndex
+
+        billField.becomeFirstResponder()
     }
 
     override func didReceiveMemoryWarning() {
@@ -50,6 +52,6 @@ class ViewController: UIViewController {
     }
     
     @IBAction func onTap(sender: AnyObject) {
-        view.endEditing(true)
+       //view.endEditing(true)
     }
 }

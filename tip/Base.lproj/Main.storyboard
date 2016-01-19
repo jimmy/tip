@@ -143,7 +143,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="wr1-BM-Pts"/>
                     <connections>
-                        <outlet property="defaultTipController" destination="FJN-m9-nv6" id="Pog-rs-L5J"/>
+                        <outlet property="defaultTipControl" destination="FJN-m9-nv6" id="u5A-8E-2dB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c70-go-CE7" userLabel="First Responder" sceneMemberID="firstResponder"/>
