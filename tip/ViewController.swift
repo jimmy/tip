@@ -15,10 +15,16 @@ class ViewController: UIViewController {
     @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var tipControl: UISegmentedControl!
     
+     let defaultTipIndexKey = "defaultTipIndex"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tipLabel.text = "$0.00"
         totalLabel.text = "$0.00"
+        
+        let defaults = NSUserDefaults.standardUserDefaults()
+        let tipIndex = defaults.integerForKey(defaultTipIndexKey)
+        tipControl.selectedSegmentIndex = tipIndex
     }
 
     override func didReceiveMemoryWarning() {
