@@ -15,7 +15,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var tipControl: UISegmentedControl!
     
-     let defaultTipIndexKey = "defaultTipIndex"
+    let defaultTipIndexKey = "defaultTipIndex"
+    let lastBillTextKey = "lastBillFieldText"
+    let lastBillDateKey = "timeOfLastBillFieldUpdate"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +26,16 @@ class ViewController: UIViewController {
         
         let defaults = NSUserDefaults.standardUserDefaults()
         let tipIndex = defaults.integerForKey(defaultTipIndexKey)
+
+        if let dateOfLastInput = defaults.objectForKey(lastBillDateKey) as? NSDate {
+            let secondsSinceLastInput = NSDate().timeIntervalSinceDate(dateOfLastInput)
+            if secondsSinceLastInput < 10*60 {
+                if let lastInput = defaults.stringForKey(lastBillTextKey) {
+                    billField.text = lastInput
+                    onEditingChanged(self)
+                }
+            }
+        }
         tipControl.selectedSegmentIndex = tipIndex
 
         billField.becomeFirstResponder()
@@ -35,17 +47,26 @@ class ViewController: UIViewController {
     }
 
     @IBAction func onEditingChanged(sender: AnyObject) {
-        var tipAmount = 0.0
-        var totalAmount = 0.0
-        let tipPercentages = [0.15, 0.18, 0.20, 0.25]
-        let tipPercent = tipPercentages[tipControl.selectedSegmentIndex]
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setObject(billField.text, forKey: lastBillTextKey)
+        defaults.setObject(NSDate(), forKey: lastBillDateKey)
         
+        tipLabel.text = String(format: "$%.2f", 0.0)
+        totalLabel.text = String(format: "$%.2f", 0.0)
+
         if let billText = billField.text {
             if let billAmount = Double(billText) {
-                tipAmount = billAmount * tipPercent
-                totalAmount = billAmount + tipAmount
+                setTip(billAmount)
             }
         }
+    }
+
+    func setTip(billAmount: Double) {
+        let tipPercentages = [0.15, 0.18, 0.20, 0.25]
+        let tipPercent = tipPercentages[tipControl.selectedSegmentIndex]
+
+        let tipAmount = billAmount * tipPercent
+        let totalAmount = billAmount + tipAmount
         
         tipLabel.text = String(format: "$%.2f", tipAmount)
         totalLabel.text = String(format: "$%.2f", totalAmount)
