@@ -18,15 +18,21 @@ class ViewController: UIViewController {
     let defaultTipIndexKey = "defaultTipIndex"
     let lastBillTextKey = "lastBillFieldText"
     let lastBillDateKey = "timeOfLastBillFieldUpdate"
+    let defaults = NSUserDefaults.standardUserDefaults()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let tipIndex = defaults.integerForKey(defaultTipIndexKey)
+        tipControl.selectedSegmentIndex = tipIndex
+        viewWillAppear(false)
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+
         tipLabel.text = formatMoney(0.0)
         totalLabel.text = formatMoney(0.0)
         
-        let defaults = NSUserDefaults.standardUserDefaults()
-        let tipIndex = defaults.integerForKey(defaultTipIndexKey)
-
         if let dateOfLastInput = defaults.objectForKey(lastBillDateKey) as? NSDate {
             let secondsSinceLastInput = NSDate().timeIntervalSinceDate(dateOfLastInput)
             if secondsSinceLastInput < 10*60 {
@@ -36,14 +42,8 @@ class ViewController: UIViewController {
                 }
             }
         }
-        tipControl.selectedSegmentIndex = tipIndex
-
+        
         billField.becomeFirstResponder()
-    }
-
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        viewDidLoad()
     }
 
     override func didReceiveMemoryWarning() {
@@ -55,7 +55,7 @@ class ViewController: UIViewController {
         let defaults = NSUserDefaults.standardUserDefaults()
         defaults.setObject(billField.text, forKey: lastBillTextKey)
         defaults.setObject(NSDate(), forKey: lastBillDateKey)
-        
+
         tipLabel.text = formatMoney(0.0)
         totalLabel.text = formatMoney(0.0)
 
