@@ -85,7 +85,7 @@ class ViewController: UIViewController {
         if let currencyCode = defaults.stringForKey("currencyCode") {
             formatter.currencyCode = currencyCode
         }
-        if let localeIdentifier = defaults.stringForKey("localeIdentifier") {
+        if let localeIdentifier = defaults.stringForKey("localeKey") {
             formatter.locale = NSLocale(localeIdentifier: localeIdentifier)
         }
 

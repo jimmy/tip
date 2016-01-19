@@ -119,14 +119,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Default Tip Amount" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3Mm-2z-JjS">
-                                <rect key="frame" x="22" y="117" width="276" height="38"/>
+                                <rect key="frame" x="22" y="72" width="276" height="38"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="24"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="FJN-m9-nv6">
-                                <rect key="frame" x="25" y="163" width="270" height="29"/>
+                                <rect key="frame" x="25" y="112" width="270" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="15%"/>
@@ -139,23 +139,63 @@
                                 </connections>
                             </segmentedControl>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Currency" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8UN-Q1-Eyd">
-                                <rect key="frame" x="22" y="219" width="276" height="38"/>
+                                <rect key="frame" x="22" y="177" width="276" height="38"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="24"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <pickerView contentMode="scaleToFill" id="VeO-aM-ERM">
-                                <rect key="frame" x="0.0" y="265" width="320" height="131"/>
+                                <rect key="frame" x="0.0" y="230" width="320" height="131"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             </pickerView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Locale" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gjq-ed-bd2">
+                                <rect key="frame" x="22" y="375" width="276" height="38"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="24"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="vQg-Nj-Hjd">
+                                <rect key="frame" x="91" y="205" width="139" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Use Phone's Default"/>
+                                <connections>
+                                    <action selector="onCurrencyButtonTap:" destination="p6p-Vs-WdC" eventType="touchUpInside" id="qGs-WT-m9w"/>
+                                </connections>
+                            </button>
+                            <pickerView contentMode="scaleToFill" id="db5-Gu-VcP">
+                                <rect key="frame" x="0.0" y="430" width="320" height="131"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </pickerView>
+                            <view contentMode="scaleToFill" id="B8e-Mu-i6N">
+                                <rect key="frame" x="18" y="162" width="280" height="2"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="3ur-KO-fKf">
+                                <rect key="frame" x="18" y="369" width="280" height="2"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="3lG-J3-Qdc">
+                                <rect key="frame" x="91" y="407" width="139" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Use Phone's Default"/>
+                                <connections>
+                                    <action selector="onLocaleButtonTap:" destination="p6p-Vs-WdC" eventType="touchUpInside" id="Fbu-83-9FN"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="wr1-BM-Pts"/>
                     <connections>
+                        <outlet property="currencyButton" destination="vQg-Nj-Hjd" id="ryU-jm-VRb"/>
                         <outlet property="currencyPicker" destination="VeO-aM-ERM" id="7KQ-Io-SQd"/>
                         <outlet property="defaultTipControl" destination="FJN-m9-nv6" id="u5A-8E-2dB"/>
+                        <outlet property="localeButton" destination="3lG-J3-Qdc" id="jgu-gI-Rfm"/>
+                        <outlet property="localePicker" destination="db5-Gu-VcP" id="9RK-Ji-Xvy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c70-go-CE7" userLabel="First Responder" sceneMemberID="firstResponder"/>
