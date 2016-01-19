@@ -21,8 +21,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tipLabel.text = "$0.00"
-        totalLabel.text = "$0.00"
+        tipLabel.text = formatMoney(0.0)
+        totalLabel.text = formatMoney(0.0)
         
         let defaults = NSUserDefaults.standardUserDefaults()
         let tipIndex = defaults.integerForKey(defaultTipIndexKey)
@@ -41,6 +41,11 @@ class ViewController: UIViewController {
         billField.becomeFirstResponder()
     }
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        viewDidLoad()
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -51,8 +56,8 @@ class ViewController: UIViewController {
         defaults.setObject(billField.text, forKey: lastBillTextKey)
         defaults.setObject(NSDate(), forKey: lastBillDateKey)
         
-        tipLabel.text = String(format: "$%.2f", 0.0)
-        totalLabel.text = String(format: "$%.2f", 0.0)
+        tipLabel.text = formatMoney(0.0)
+        totalLabel.text = formatMoney(0.0)
 
         if let billText = billField.text {
             if let billAmount = Double(billText) {
@@ -68,8 +73,23 @@ class ViewController: UIViewController {
         let tipAmount = billAmount * tipPercent
         let totalAmount = billAmount + tipAmount
         
-        tipLabel.text = String(format: "$%.2f", tipAmount)
-        totalLabel.text = String(format: "$%.2f", totalAmount)
+        tipLabel.text = formatMoney(tipAmount)
+        totalLabel.text = formatMoney(totalAmount)
+    }
+
+    func formatMoney(amount: Double) -> String {
+        let formatter = NSNumberFormatter()
+        formatter.numberStyle = .CurrencyStyle
+
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if let currencyCode = defaults.stringForKey("currencyCode") {
+            formatter.currencyCode = currencyCode
+        }
+        if let localeIdentifier = defaults.stringForKey("localeIdentifier") {
+            formatter.locale = NSLocale(localeIdentifier: localeIdentifier)
+        }
+
+        return formatter.stringFromNumber(amount)!
     }
     
     @IBAction func onTap(sender: AnyObject) {

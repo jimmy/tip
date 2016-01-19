@@ -8,16 +8,34 @@
 
 import UIKit
 
-class SettingsViewController: UIViewController {
+class SettingsViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
 
     @IBOutlet weak var defaultTipControl: UISegmentedControl!
-    let defaultTipIndexKey = "defaultTipIndex"
+    @IBOutlet weak var currencyPicker: UIPickerView!
     
+    let defaultTipIndexKey = "defaultTipIndex"
+    let currencyCodeKey = "currencyCode"
+    let currencyPickerData = NSLocale.ISOCurrencyCodes()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         let defaults = NSUserDefaults.standardUserDefaults()
         let tipIndex = defaults.integerForKey(defaultTipIndexKey)
         defaultTipControl.selectedSegmentIndex = tipIndex
+
+        currencyPicker.dataSource = self
+        currencyPicker.delegate = self
+
+        var currencyCode = "USD"
+        if defaults.objectForKey(currencyCodeKey) != nil {
+            currencyCode = defaults.objectForKey(currencyCodeKey) as! String
+        }
+
+        var currencyPickerIndex = 0
+        if currencyPickerData.indexOf(currencyCode) != nil {
+            currencyPickerIndex = currencyPickerData.indexOf(currencyCode)!
+        }
+        currencyPicker.selectRow(currencyPickerIndex, inComponent: 0, animated: false)
     }
 
     override func didReceiveMemoryWarning() {
@@ -29,14 +47,19 @@ class SettingsViewController: UIViewController {
         defaults.setInteger(defaultTipControl.selectedSegmentIndex, forKey: defaultTipIndexKey)
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        return 1
     }
-    */
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return currencyPickerData.count
+    }
 
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return currencyPickerData[row]
+    }
+
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setObject(currencyPickerData[row], forKey: currencyCodeKey)
+    }
 }
